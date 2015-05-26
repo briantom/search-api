@@ -16,7 +16,7 @@ var loadData = function(){
 	$.ajax({
 	  'url': search_url,
 	  'success': function(data) { 
-	  		alert("I got the data");
+	  		//alert("I got the data");
 	  		$("#result-container").html(JSON.stringify(data["response"]["docs"]));
 	   },
 	  'dataType': 'jsonp',
@@ -25,7 +25,7 @@ var loadData = function(){
 };
 $(document).ready(function(){
 	$("#search-button").click(function(){
-		alert("I heard the click");
+		//alert("I heard the click");
 		loadData();		
 	});
 	$("#search-input").keypress(function(e) {
