@@ -9,27 +9,26 @@ if (!String.prototype.format) {
     });
   };
 }
-$(document).ready(function(){
+var loadData = function(){
+	var base_url = "http://ec2-52-10-79-212.us-west-2.compute.amazonaws.com:8080"
+	var query = $("#search-input").val();
+	var search_url = base_url + "/solr/select/?q=-Body:{0}+BodyBlurred:{1}&wt=json&json.rwf=callback".format(query,query);
 	$.ajax({
-		    type: "GET",
-		    url: "http://www.w3schools.com/xml/cd_catalog.xml",
-		    dataType: "xml",
-		    success: function(xml, status, error){
-		        alert('hello');
-		        // Parse the xml file and get data
-		        $("#result-container").append("Hello world");
-		        // var xmlDoc = $.parseXML(xml),
-		        //     $xml = $(xmlDoc);
-		        
-		    },
-		    error: function(jqXhr, status, error){
-		    	alert(status + ':' + error + ':' + jqXhr.responseText);
-		    }
-		}) ;
-	$("button").click(function(){
-		var base_url = "localhost:8080"
-		var query = $("#search-input").val();
-		var search_url = base_url + "/solr/select/?q=-Body:{0}+BodyBlurred:{1}".format(query,query);
-		alert('hello world');
+	  'url': search_url,
+	  'success': function(data) { 
+	  		$("#result-container").html(JSON.stringify(data));
+	   },
+	  'dataType': 'jsonp',
+	  'jsonp': 'json.wrf'
+	});
+};
+$(document).ready(function(){
+	$("#search-button").click(function(){
+		loadData();		
+	});
+	$("#search-input").keypress(function(e) {
+	    if(e.which == 13) {
+	    	loadData();
+	    }
 	});
 });
