@@ -10,7 +10,7 @@ if (!String.prototype.format) {
   };
 };
 var loadData = function(){
-	var base_url = "http://ec2-52-10-79-212.us-west-2.compute.amazonaws.com:8080"
+	var base_url = "http://ec2-52-10-79-212.us-west-2.compute.amazonaws.com:8080";
 	var query = $("#search-input").val();
 	var search_url = base_url + "/solr/select/?q=-Body:{0}+BodyBlurred:{1}&wt=json&json.rwf=callback".format(query,query);
 	$.ajax({
