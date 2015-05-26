@@ -16,7 +16,7 @@ var loadData = function(){
 	$.ajax({
 	  'url': search_url,
 	  'success': function(data) { 
-	  		$("#result-container").html(JSON.stringify(data));
+	  		$("#result-container").html(JSON.stringify(data["response"]["docs"]));
 	   },
 	  'dataType': 'jsonp',
 	  'jsonp': 'json.wrf'
