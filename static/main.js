@@ -12,12 +12,22 @@ if (!String.prototype.format) {
 var loadData = function(){
 	var base_url = "http://ec2-52-10-79-212.us-west-2.compute.amazonaws.com:8080";
 	var query = $("#search-input").val();
-	var search_url = base_url + "/solr/select/?q=-Body:{0}+BodyBlurred:{1}&wt=json&json.rwf=callback".format(query,query);
+	var search_url1 = base_url + "/solr/select/?q=-Body:{0}+BodyBlurred:{1}&wt=json&json.rwf=callback".format(query,query);
+	var search_url2 = base_url + "/solr/select/?q=Body:{0}&wt=json&json.rwf=callback".format(query);
 	$.ajax({
-	  'url': search_url,
+	  'url': search_url1,
 	  'success': function(data) { 
 	  		//alert("I got the data");
 	  		$("#result-container").html(JSON.stringify(data["response"]["docs"]));
+	   },
+	  'dataType': 'jsonp',
+	  'jsonp': 'json.wrf'
+	});
+	$.ajax({
+	  'url': search_url2,
+	  'success': function(data) { 
+	  		//alert("I got the data");
+	  		$("#result-container").append(JSON.stringify(data["response"]["docs"]));
 	   },
 	  'dataType': 'jsonp',
 	  'jsonp': 'json.wrf'
